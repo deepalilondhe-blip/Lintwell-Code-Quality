@@ -781,26 +781,21 @@ test.describe('Lintwell QA — Live Project Read-Only Verification', () => {
       Object.defineProperty(screen, 'width', { get: () => 393, configurable: true });
       Object.defineProperty(screen, 'height', { get: () => 852, configurable: true });
 
-      // Wrap document body into iPhone frame
-      const wrapDOM = () => {
-        console.log("   [initScript] wrapDOM triggered! document.readyState:", document.readyState);
-        if (document.getElementById('iphone-frame-wrapper')) {
-          console.log("   [initScript] wrapDOM: Frame already exists, skipping.");
-          return;
-        }
-        if (!document.body) {
-          console.log("   [initScript] wrapDOM: document.body is null, skipping.");
-          return;
-        }
+      let wrapped = false;
 
-        console.log("   [initScript] wrapDOM: body found, wrapping existing elements. Children count:", document.body.children.length);
+      // Wrap DOM content in iPhone frame
+      const wrapDOM = () => {
+        if (wrapped || document.getElementById('iphone-frame-wrapper')) return;
+        if (!document.body) return;
+
+        wrapped = true;
+        console.log("   [initScript] wrapDOM: wrapping elements into iPhone 17 Pro frame");
 
         // Create container shell
         const container = document.createElement('div');
         container.id = 'iphone-frame-wrapper';
         container.style.cssText = 'position: relative; width: 406px; height: 880px; background: linear-gradient(145deg, #1a1a1a 0%, #2a2a2a 15%, #1e1e1e 30%, #333333 50%, #1a1a1a 70%, #2d2d2d 85%, #1a1a1a 100%); border-radius: 58px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.12), 0 0 0 1px rgba(0,0,0,0.9), 0 20px 60px rgba(0,0,0,0.8); overflow: hidden; z-index: 999999; margin: auto;';
 
-        // Add side buttons
         const power = document.createElement('div');
         power.style.cssText = 'position: absolute; right: 0; top: 220px; width: 4px; height: 80px; background: #4a4a4a; border-radius: 0 3px 3px 0; z-index: 10;';
         const action = document.createElement('div');
@@ -810,29 +805,24 @@ test.describe('Lintwell QA — Live Project Read-Only Verification', () => {
         const volDown = document.createElement('div');
         volDown.style.cssText = 'position: absolute; left: 0; top: 250px; width: 4px; height: 46px; background: #4a4a4a; border-radius: 3px 0 0 3px; z-index: 10;';
 
-        // Screen element
         const screenEl = document.createElement('div');
         screenEl.style.cssText = 'position: absolute; top: 6px; left: 6px; right: 6px; bottom: 6px; background: #fdfbf7; border-radius: 52px; overflow: hidden;';
 
-        // Content Scroll Wrapper
         const scrollWrapper = document.createElement('div');
         scrollWrapper.id = 'iphone-scroll-wrapper';
         scrollWrapper.style.cssText = 'width: 100%; height: 100%; overflow-y: auto; overflow-x: hidden; padding-top: 54px; padding-bottom: 24px; box-sizing: border-box; -ms-overflow-style: none; scrollbar-width: none;';
 
-        // Status Bar
         const statusBar = document.createElement('div');
         statusBar.style.cssText = 'position: absolute; top: 0; left: 0; right: 0; height: 54px; z-index: 50; display: flex; align-items: flex-start; justify-content: space-between; padding: 17px 28px 0 28px; pointer-events: none; color: #1a1a1a; font-family: -apple-system, sans-serif; font-size: 14px; font-weight: bold; background: linear-gradient(to bottom, rgba(253,251,247,0.95), rgba(253,251,247,0));';
         statusBar.innerHTML = '<div>9:41</div><div style="display: flex; align-items: center; gap: 6px;"><span>📶</span><span>📶</span><span style="font-size: 11px;">87% 🔋</span></div>';
 
-        // Notch / Dynamic Island
         const notch = document.createElement('div');
         notch.style.cssText = 'position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 126px; height: 37px; background: #000; border-radius: 20px; z-index: 60; box-shadow: 0 0 0 0.5px rgba(255,255,255,0.04);';
 
-        // Home Indicator
         const homeInd = document.createElement('div');
         homeInd.style.cssText = 'position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); width: 134px; height: 5px; background: rgba(0,0,0,0.3); border-radius: 3px; z-index: 55;';
 
-        // Move body children to scrollWrapper (excluding script/style tags and the frame itself)
+        // Move body children to scrollWrapper
         const body = document.body;
         const children = Array.from(body.children);
         children.forEach(c => {
@@ -852,10 +842,8 @@ test.describe('Lintwell QA — Live Project Read-Only Verification', () => {
         screenEl.appendChild(homeInd);
         body.appendChild(container);
 
-        // Center frame styling
         body.style.cssText = 'background: #0a0a0a !important; display: flex !important; justify-content: center !important; align-items: center !important; height: 100vh !important; margin: 0 !important; overflow: hidden !important; width: 100% !important; opacity: 1 !important;';
 
-        // Responsive styling inside scrollWrapper
         const styleOverride = document.createElement('style');
         styleOverride.id = 'mobile-frame-layout-overrides';
         styleOverride.textContent = `
@@ -866,20 +854,16 @@ test.describe('Lintwell QA — Live Project Read-Only Verification', () => {
         `;
         document.head.appendChild(styleOverride);
 
-        // Remove early black block
         const early = document.getElementById('early-mobile-frame-hide');
         if (early) early.remove();
 
-        console.log("   [initScript] wrapDOM: Initial wrap completed! Starting MutationObserver on body...");
-
-        // Start observing body for dynamic child additions (React/Vue/Laravel Livewire appends)
+        // Observe for dynamically added elements and move them into the phone scrollwrapper
         const bodyObserver = new MutationObserver((mutations) => {
           mutations.forEach((mutation) => {
             mutation.addedNodes.forEach((node) => {
-              if (node.nodeType === 1) { // Element node
+              if (node.nodeType === 1) {
                 const el = node;
                 if (el.id !== 'iphone-frame-wrapper' && el.tagName !== 'SCRIPT' && el.tagName !== 'STYLE' && !scrollWrapper.contains(el)) {
-                  console.log("   [initScript] MutationObserver: Moving dynamic element to frame wrapper:", el.tagName, el.id || el.className || "");
                   scrollWrapper.appendChild(el);
                 }
               }
@@ -889,37 +873,38 @@ test.describe('Lintwell QA — Live Project Read-Only Verification', () => {
         bodyObserver.observe(body, { childList: true });
       };
 
-      // 2. Inject early styles immediately and synchronously (documentElement is guaranteed to exist now)
-      console.log("   [initScript] Injecting early styles...");
-      const style = document.createElement('style');
-      style.id = 'early-mobile-frame-hide';
-      style.textContent = `
-        html {
-          background: #0a0a0a !important;
-        }
-        body {
-          opacity: 0 !important;
-          background: #0a0a0a !important;
-          visibility: hidden !important;
-        }
-      `;
-      document.documentElement.appendChild(style);
+      let stylesInjected = false;
 
-      // 3. Run wrapDOM as soon as document.body is available via MutationObserver (or immediately if already available)
-      if (document.body) {
-        console.log("   [initScript] document.body already exists! Running wrapDOM...");
-        wrapDOM();
-      } else {
-        console.log("   [initScript] document.body not ready yet, watching documentElement...");
-        const observer = new MutationObserver(() => {
-          if (document.body) {
-            observer.disconnect();
-            console.log("   [initScript] document.body detected by observer! Running wrapDOM...");
-            wrapDOM();
-          }
-        });
-        observer.observe(document.documentElement, { childList: true, subtree: true });
-      }
+      const run = () => {
+        // Inject early stylesheet ONLY ONCE
+        if (document.documentElement && !stylesInjected) {
+          stylesInjected = true;
+          console.log("   [initScript] Injecting early styles...");
+          const style = document.createElement('style');
+          style.id = 'early-mobile-frame-hide';
+          style.textContent = `
+            html { background: #0a0a0a !important; }
+            body { opacity: 0 !important; background: #0a0a0a !important; visibility: hidden !important; }
+          `;
+          document.documentElement.appendChild(style);
+        }
+
+        // Attempt DOM wrap
+        if (document.body && !document.getElementById('iphone-frame-wrapper')) {
+          wrapDOM();
+        }
+      };
+
+      // Watch document for mutations continuously to ensure self-healing wrapper
+      const observer = new MutationObserver((mutations) => {
+        run();
+      });
+      observer.observe(document, { childList: true, subtree: true });
+
+      // Run on readystatechange or DOMContentLoaded as fallbacks
+      document.addEventListener('readystatechange', run);
+      document.addEventListener('DOMContentLoaded', run);
+      run();
     });
 
     // ═══════════════════════════════════════════
