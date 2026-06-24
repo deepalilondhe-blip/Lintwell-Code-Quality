@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang="en" class="theme-warm"><head>
+  <meta charset="utf-8">
+  <title>Sign In - Lintwell</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/static/dashboard.css">
+</head>
+<body class="login-page">
+  <main class="login-shell">
+    <section class="login-card">
+      <div class="brand login-brand">
+        <span class="brand-mark">LW</span>
+        <span>
+          <span class="brand-name">Lintwell</span>
+          <span class="brand-sub">Code Quality</span>
+        </span>
+      </div>
+
+      
+        
+      
+
+      
+      <div class="seg login-seg" id="loginSeg">
+        <button class="active" type="button" data-login-tab="signin">Sign In</button>
+        <button type="button" data-login-tab="register">Register</button>
+      </div>
+
+      
+      <div id="signinPanel">
+        <form method="post" action="/login" class="login-form">
+          <input type="hidden" name="_csrf_token" value="XdM57tiSbxhLIwXZv85ROIag_G9lp3D4lIVsrJn9wvk">
+          <label>Email <input type="email" name="email" autocomplete="email" required="" placeholder="you@company.com"></label>
+          <label>Password <input type="password" name="password" autocomplete="current-password" required=""></label>
+          <button class="btn-primary" type="submit">Sign in</button>
+        </form>
+        <div style="margin-top: 12px; text-align: center;">
+          <button class="login-forgot-link" type="button" id="showForgotBtn">Forgot password?</button>
+        </div>
+      </div>
+
+      
+      <div id="registerPanel" class="hidden">
+        <p class="card-sub" style="margin-bottom: 14px;">New accounts are employees by default. CTO can promote roles.</p>
+        <form method="post" action="/register" class="login-form">
+          <input type="hidden" name="_csrf_token" value="XdM57tiSbxhLIwXZv85ROIag_G9lp3D4lIVsrJn9wvk">
+          <label>Name <input name="display_name" autocomplete="name" required=""></label>
+          <label>Email <input type="email" name="email" autocomplete="email" required=""></label>
+          <label>Username <input name="username" autocomplete="username" required=""></label>
+          <label>Password <input type="password" name="password" autocomplete="new-password" required=""></label>
+          <button class="btn-primary" type="submit">Create employee account</button>
+        </form>
+      </div>
+
+      
+      <div id="forgotPanel" class="hidden">
+        <p class="card-sub" style="margin-bottom: 14px;">Enter your email and a password reset link will be emailed to you.</p>
+        <form method="post" action="/forgot-password" class="login-form">
+          <input type="hidden" name="_csrf_token" value="XdM57tiSbxhLIwXZv85ROIag_G9lp3D4lIVsrJn9wvk">
+          <label>Email <input type="email" name="email" autocomplete="email" required=""></label>
+          <button class="btn-ghost" type="submit">Send reset link</button>
+        </form>
+        <div style="margin-top: 10px; text-align: center;">
+          <button class="login-forgot-link" type="button" id="hideForgotBtn">Back to sign in</button>
+        </div>
+      </div>
+
+      <p class="login-version">Lintwell v1.1</p>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      var signinPanel = document.getElementById('signinPanel');
+      var registerPanel = document.getElementById('registerPanel');
+      var forgotPanel = document.getElementById('forgotPanel');
+
+      document.querySelectorAll('[data-login-tab]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          document.querySelectorAll('[data-login-tab]').forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          var tab = btn.dataset.loginTab;
+          signinPanel.classList.toggle('hidden', tab !== 'signin');
+          registerPanel.classList.toggle('hidden', tab !== 'register');
+          forgotPanel.classList.add('hidden');
+        });
+      });
+
+      document.getElementById('showForgotBtn').addEventListener('click', function () {
+        signinPanel.classList.add('hidden');
+        forgotPanel.classList.remove('hidden');
+      });
+
+      document.getElementById('hideForgotBtn').addEventListener('click', function () {
+        forgotPanel.classList.add('hidden');
+        signinPanel.classList.remove('hidden');
+      });
+    })();
+  </script>
+
+</body></html>

@@ -1,0 +1,92 @@
+============================================================
+        LINTWELL CODE QUALITY - PLAYWRIGHT COMMANDS
+============================================================
+
+📌 PROJECT LOCATION: C:\Lintwell Code Quality
+📌 URL UNDER TEST:   https://code-quality-tracker.bytestechnolab.net
+📌 DEVICE:           iPhone 17 Mobile View (Grey-Black Dark Mode)
+
+============================================================
+                     RUN COMMANDS
+============================================================
+
+1. Run Test (Headed - Opens Browser):
+   npx playwright test --headed
+
+2. Run Test (Headless - Background):
+   npx playwright test
+
+3. Run Test with Debug Mode:
+   npx playwright test --debug
+
+4. Open HTML Report After Test:
+   npx playwright show-report
+
+5. Run Specific Test File:
+   npx playwright test tests/open-url.spec.js --headed
+
+6. Run with Trace Viewer:
+   npx playwright test --trace on
+
+7. Install Browsers (if needed):
+   npx playwright install chromium
+
+============================================================
+                  TESTING NOTES
+============================================================
+
+We are doing a lot of testing to make sure everything 
+is perfect in the mobile view. This is not just a basic 
+check — we are going deep into every detail.
+
+Our Goal:
+---------
+Make sure the mobile view is PERFECT and looks REALISTIC.
+All icons should be displayed correctly in the mobile view,
+and the overall interface should accurately reflect a real 
+mobile experience.
+
+What We Are Testing:
+--------------------
+✅ Mobile viewport matches real iPhone 17 dimensions (393x852 @3x)
+✅ Dark mode (grey-black colour scheme) is applied properly
+✅ All icons render correctly — no broken or missing icons
+✅ Touch interactions work as expected (tap, swipe, scroll)
+✅ Fonts and text are readable at mobile scale
+✅ Navigation menus and hamburger icons display properly
+✅ Buttons and form inputs are touch-friendly sizes
+✅ Images and logos scale correctly for mobile
+✅ No horizontal scrolling or layout overflow issues
+✅ The interface feels like a REAL mobile experience
+
+After Mobile Realistic Perfect:
+-------------------------------
+Once the mobile view is confirmed to be realistic and 
+perfect, we will move forward with additional testing 
+such as:
+  - Functional testing of all features
+  - Form validation and input testing
+  - Login/authentication flow testing
+  - API response verification
+  - Cross-device compatibility checks
+  - Performance and load time testing
+  - Accessibility testing
+  - Screenshot comparison testing
+
+============================================================
+                  QUICK START
+============================================================
+
+Step 1: Open terminal in project folder
+        cd "C:\Lintwell Code Quality"
+
+Step 2: Run the test
+        npx playwright test --headed
+
+Step 3: View the report
+        npx playwright show-report
+
+Step 4: Check screenshot
+        Open: test-results\iphone17-mobile-view.png
+
+============================================================
