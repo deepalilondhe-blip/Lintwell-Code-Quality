@@ -33,8 +33,9 @@ module.exports = defineConfig({
     {
       name: 'iPhone-17-Grey-Black',
       use: {
-        browserName: 'chromium',
-        viewport: { width: 520, height: 980 },
+        ...devices['iPhone 15 Pro'], // Native mobile emulation settings (userAgent, isMobile, hasTouch)
+        browserName: 'chromium', // Force chromium for DOM frame injection
+        viewport: { width: 520, height: 980 }, // Custom dimensions to accommodate bezel mockup
         deviceScaleFactor: 2,
         colorScheme: 'dark',
         bypassCSP: true,
