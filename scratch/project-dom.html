@@ -1,0 +1,910 @@
+<!DOCTYPE html><html lang="en" class="theme-warm"><head>
+  <meta charset="utf-8">
+  <title>dodlab - Lintwell</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="_yTHlmmM3iY7863jmsYnnL9o8b0YOca_3cSgu8gving">
+  <link rel="stylesheet" href="/static/dashboard.css?v=20260603-9">
+  <script>
+    // CSRF: attach the session token to every same-origin mutating request and
+    // to every form submit, so the server-side before_request check passes.
+    (function () {
+      var CSRF = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+      var nativeFetch = window.fetch;
+      window.fetch = function (input, init) {
+        init = init || {};
+        var method = (init.method || (typeof input === 'object' && input.method) || 'GET').toUpperCase();
+        var url = (typeof input === 'string') ? input : (input && input.url) || '';
+        var sameOrigin = url.indexOf('http') !== 0 || url.indexOf(window.location.origin) === 0;
+        if (method !== 'GET' && method !== 'HEAD' && sameOrigin) {
+          init.headers = new Headers(init.headers || {});
+          if (!init.headers.has('X-CSRF-Token')) init.headers.set('X-CSRF-Token', CSRF);
+        }
+        return nativeFetch(input, init);
+      };
+      document.addEventListener('submit', function (event) {
+        var form = event.target;
+        if (!form || form.method.toUpperCase() === 'GET') return;
+        if (form.querySelector('input[name="_csrf_token"]')) return;
+        var field = document.createElement('input');
+        field.type = 'hidden';
+        field.name = '_csrf_token';
+        field.value = CSRF;
+        form.appendChild(field);
+      }, true);
+    })();
+  </script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <a class="brand" href="/">
+        <span class="brand-mark">LW</span>
+        <span>
+          <span class="brand-name">Lintwell</span>
+          <span class="brand-sub">Code Quality</span>
+        </span>
+      </a>
+
+      
+        <button class="btn-primary upload-btn" type="button" data-open-upload="">Upload report</button>
+      
+
+      <nav class="side-nav">
+        <p class="nav-label">Workspace</p>
+        <a href="/?start=&amp;end=&amp;start_ts=&amp;end_ts=" class="nav-item ">
+          <span>Dashboard</span>
+          <strong class="nav-count">9</strong>
+        </a>
+      </nav>
+
+      <nav class="side-nav">
+        <p class="nav-label">Projects</p>
+        
+          
+          
+          <a href="/?project_id=5a01e64ee1a8&amp;start=&amp;end=&amp;start_ts=&amp;end_ts=" class="nav-item active">
+            <span>
+              
+              dodlab
+            </span>
+            <strong class="nav-count nav-count-danger">280</strong>
+          </a>
+        
+          
+          
+          <a href="/?project_id=c975b4c72e26&amp;start=&amp;end=&amp;start_ts=&amp;end_ts=" class="nav-item ">
+            <span>
+              
+              silhouette
+            </span>
+            <strong class="nav-count nav-count-danger">27524</strong>
+          </a>
+        
+          
+          
+          <a href="/?project_id=346e9df75b68&amp;start=&amp;end=&amp;start_ts=&amp;end_ts=" class="nav-item ">
+            <span>
+              
+              ideaoman
+            </span>
+            <strong class="nav-count nav-count-danger">123</strong>
+          </a>
+        
+          
+          
+          <a href="/?project_id=beeaab29e335&amp;start=&amp;end=&amp;start_ts=&amp;end_ts=" class="nav-item ">
+            <span>
+              
+              petzone
+            </span>
+            <strong class="nav-count nav-count-danger">75630</strong>
+          </a>
+        
+          
+          
+          <a href="/?project_id=03e050c5385d&amp;start=&amp;end=&amp;start_ts=&amp;end_ts=" class="nav-item ">
+            <span>
+              
+              mokab
+            </span>
+            <strong class="nav-count nav-count-danger">12565</strong>
+          </a>
+        
+          
+          
+          <a href="/?project_id=a1a01c75899c&amp;start=&amp;end=&amp;start_ts=&amp;end_ts=" class="nav-item ">
+            <span>
+              
+              rakesha
+            </span>
+            <strong class="nav-count nav-count-danger">702</strong>
+          </a>
+        
+          
+          
+          <a href="/?project_id=9a6aaa0a1ff2&amp;start=&amp;end=&amp;start_ts=&amp;end_ts=" class="nav-item ">
+            <span>
+              
+              Catrion RSG-Cloud
+            </span>
+            <strong class="nav-count ">0</strong>
+          </a>
+        
+          
+          
+          <a href="/?project_id=c0c282cb43ff&amp;start=&amp;end=&amp;start_ts=&amp;end_ts=" class="nav-item ">
+            <span>
+              
+              dodtec
+            </span>
+            <strong class="nav-count nav-count-danger">54798</strong>
+          </a>
+        
+          
+          
+          <a href="/?project_id=8226a27a152b&amp;start=&amp;end=&amp;start_ts=&amp;end_ts=" class="nav-item ">
+            <span>
+              
+              kwality
+            </span>
+            <strong class="nav-count nav-count-danger">2069</strong>
+          </a>
+        
+      </nav>
+
+      
+      <nav class="side-nav">
+        <p class="nav-label">Management</p>
+        <a href="/team" class="nav-item ">
+          <span>Team</span>
+        </a>
+        <a href="/schedules" class="nav-item ">
+          <span>Reports &amp; Schedules</span>
+        </a>
+        
+        <a href="/admin-panel" class="nav-item ">
+          <span>Admin Panel</span>
+          
+        </a>
+        
+      </nav>
+      
+
+      <div class="sidebar-foot">
+        <div class="sidebar-card">
+          <div class="user-avatar-row">
+            <span class="user-avatar">D</span>
+            <div class="sidebar-user-info">
+              <strong>Deepali Londhe</strong>
+              <span class="role-pill role-admin">Admin</span>
+            </div>
+          </div>
+        </div>
+        <a class="btn-ghost logout-btn" href="/logout">Sign out</a>
+        <div class="sidebar-version">Lintwell v1.1</div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="search">
+          <span>Search</span>
+          <input id="globalSearch" type="search" placeholder="Search project or issue details">
+        </div>
+        <form class="range-form" method="get" action="/">
+          <input type="hidden" name="project_id" value="5a01e64ee1a8">
+          
+            <label>From <input type="datetime-local" name="start_ts" value=""></label>
+            <label>To <input type="datetime-local" name="end_ts" value=""></label>
+          
+          <button class="btn-primary" type="submit">Apply</button>
+          <a class="btn-ghost" href="/?project_id=5a01e64ee1a8">Clear</a>
+          
+            <button class="btn-primary topbar-cta" type="button" data-open-upload="">Upload</button>
+          
+        </form>
+      </header>
+
+      <section class="content">
+        
+          
+        
+
+        
+<div class="page-head">
+  <div>
+    <p class="eyebrow breadcrumb">
+      <a href="/?start=&amp;end=&amp;start_ts=&amp;end_ts=">Global Dashboard</a>
+      <span>›</span>
+      <span>Project Report</span>
+    </p>
+    <h1>dodlab</h1>
+    <p class="font-mono">/var/www/html/magento247</p>
+  </div>
+  
+  
+    <div class="head-stat-group">
+      <div class="head-stat danger">
+        <strong id="projectHeadOpen">280</strong>
+        <span>open issues (all)</span>
+      </div>
+      <div class="head-stat success">
+        <strong id="projectHeadResolved">2700</strong>
+        <span>resolved (all)</span>
+      </div>
+    </div>
+  
+</div>
+
+
+
+
+
+<nav class="tab-nav" data-page-key="project-5a01e64ee1a8">
+  <button class="tab-btn active" data-tab="proj-overview">Overview</button>
+  <button class="tab-btn" data-tab="proj-issues">Issues</button>
+  
+  
+  
+  
+    <button class="tab-btn" data-tab="proj-settings">Settings</button>
+  
+</nav>
+
+
+<div class="tab-panel" data-panel="proj-overview">
+  
+  <section class="action-bar">
+    
+    <button class="btn-ghost btn-sm" type="button" disabled="" title="GrumPHP runs via the per-project tracker; dashboard trigger coming soon">Run GrumPHP (soon)</button>
+    
+      <form method="post" action="/reports/send" style="display:inline;">
+        <input type="hidden" name="project_id" value="5a01e64ee1a8">
+        <button class="btn-ghost btn-sm" type="submit" title="Email this project report to the CTO now">Send report</button>
+      </form>
+    
+  </section>
+  
+  
+    <section class="stat-grid">
+      <div class="stat-card danger"><span class="stat-label">Total Open (all)</span><strong class="stat-value" id="projectCombinedOpen">280</strong></div>
+      <div class="stat-card success"><span class="stat-label">Resolved (all)</span><strong class="stat-value" id="projectCombinedResolved">2700</strong></div>
+      <div class="stat-card"><span class="stat-label">GrumPHP Open</span><strong class="stat-value" id="projectPendingCount">280</strong></div>
+      <div class="stat-card"><span class="stat-label">Sonar Open</span><strong class="stat-value" id="projectSonarOpen">0</strong></div>
+      <div class="stat-card"><span class="stat-label">Jira Open</span><strong class="stat-value" id="projectJiraOpen">0</strong></div>
+    </section>
+
+    <section class="card trend-card">
+      <div class="card-head">
+        <div>
+          <h2 class="card-title">Open issues over time</h2>
+          <p class="card-sub">Open counts per source across project history</p>
+        </div>
+        <div class="legend">
+          <span class="legend-item"><span class="dot" style="background: var(--accent);"></span> GrumPHP <strong id="projectTrendOpen">280</strong></span>
+          
+          
+        </div>
+      </div>
+      <svg id="trendChart" class="trend-chart" aria-hidden="true" viewBox="0 0 886 240"><line x1="46" x2="866" y1="16" y2="16" stroke="var(--line)" stroke-dasharray="3 4"></line><text x="38" y="20" text-anchor="end" fill="var(--ink-3)" font-size="11">2283</text><line x1="46" x2="866" y1="62" y2="62" stroke="var(--line)" stroke-dasharray="3 4"></line><text x="38" y="66" text-anchor="end" fill="var(--ink-3)" font-size="11">1712</text><line x1="46" x2="866" y1="108" y2="108" stroke="var(--line)" stroke-dasharray="3 4"></line><text x="38" y="112" text-anchor="end" fill="var(--ink-3)" font-size="11">1142</text><line x1="46" x2="866" y1="154" y2="154" stroke="var(--line)" stroke-dasharray="3 4"></line><text x="38" y="158" text-anchor="end" fill="var(--ink-3)" font-size="11">571</text><line x1="46" x2="866" y1="200" y2="200" stroke="var(--line)" stroke-dasharray="3 4"></line><text x="38" y="204" text-anchor="end" fill="var(--ink-3)" font-size="11">0</text><path d="M 46.0,16.0 L 210.0,16.0 L 374.0,107.2 L 538.0,110.5 L 702.0,199.9 L 866.0,177.4 L 866.0,200.0 L 46,200.0 Z" fill="var(--accent)" fill-opacity=".12"></path><path d="M 46.0,16.0 L 210.0,16.0 L 374.0,107.2 L 538.0,110.5 L 702.0,199.9 L 866.0,177.4" fill="none" stroke="var(--accent)" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"></path><text x="46.0" y="222" text-anchor="middle" fill="var(--ink-3)" font-size="10">05-27 11:18</text><text x="210.0" y="222" text-anchor="middle" fill="var(--ink-3)" font-size="10">06-11 12:00</text><text x="374.0" y="222" text-anchor="middle" fill="var(--ink-3)" font-size="10">06-11 12:43</text><text x="538.0" y="222" text-anchor="middle" fill="var(--ink-3)" font-size="10">06-11 13:07</text><text x="702.0" y="222" text-anchor="middle" fill="var(--ink-3)" font-size="10">06-19 08:16</text><text x="866.0" y="222" text-anchor="middle" fill="var(--ink-3)" font-size="10">06-24 10:01</text><circle cx="46.0" cy="16.0" r="3" fill="var(--accent)" stroke="var(--bg-1)" stroke-width="1.5"></circle><circle cx="210.0" cy="16.0" r="3" fill="var(--accent)" stroke="var(--bg-1)" stroke-width="1.5"></circle><circle cx="374.0" cy="107.2" r="3" fill="var(--accent)" stroke="var(--bg-1)" stroke-width="1.5"></circle><circle cx="538.0" cy="110.5" r="3" fill="var(--accent)" stroke="var(--bg-1)" stroke-width="1.5"></circle><circle cx="702.0" cy="199.9" r="3" fill="var(--accent)" stroke="var(--bg-1)" stroke-width="1.5"></circle><circle cx="866.0" cy="177.4" r="3" fill="var(--accent)" stroke="var(--bg-1)" stroke-width="1.5"></circle></svg>
+      <div class="trend-foot">
+        <span id="projectTrendFootOpen">280 open in latest snapshot</span>
+        <span id="projectTrendFootRuns">6 uploads in selected range</span>
+      </div>
+    </section>
+
+    <section class="row-3">
+      <div class="card">
+        <h2 class="card-title">Current Pending by Tool</h2>
+        <div id="projectPendingByTool"><div class="bars"><div class="bar-row"><div class="bar-label" title="phpstan">phpstan</div><div class="track"><div class="fill blue" style="width:100%"></div></div><div class="count">280</div></div></div></div>
+      </div>
+      <div class="card">
+        <h2 class="card-title">Latest by status</h2>
+        <div id="projectByStatus"><div class="bars"><div class="bar-row"><div class="bar-label" title="RESOLVED">RESOLVED</div><div class="track"><div class="fill green" style="width:100%"></div></div><div class="count">2700</div></div><div class="bar-row"><div class="bar-label" title="OPEN">OPEN</div><div class="track"><div class="fill green" style="width:10%"></div></div><div class="count">280</div></div></div></div>
+      </div>
+      <div class="card">
+        <h2 class="card-title">Current Pending by Severity</h2>
+        <div id="projectPendingBySeverity"><div class="bars"><div class="bar-row"><div class="bar-label" title="ERROR">ERROR</div><div class="track"><div class="fill amber" style="width:100%"></div></div><div class="count">280</div></div></div></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title">Current Pending Bug Types</h2>
+      <div id="projectPendingByBug"><div class="bars"><div class="bar-row"><div class="bar-label" title="Type Error">Type Error</div><div class="track"><div class="fill red" style="width:100%"></div></div><div class="count">280</div></div></div></div>
+    </section>
+
+    
+    <script>
+      window.trendData = [{"label": "2026-05-27 11:18:40", "open": 2283}, {"label": "2026-06-11 12:00:13", "open": 2283}, {"label": "2026-06-11 12:43:04", "open": 1152}, {"label": "2026-06-11 13:07:14", "open": 1110}, {"label": "2026-06-19 08:16:19", "open": 1}, {"label": "2026-06-24 10:01:54", "open": 280}];
+      window.sonarTrendData = [];
+      window.jiraTrendData = [];
+    </script>
+  
+</div>
+
+
+<div class="tab-panel hidden" data-panel="proj-issues">
+  
+    <section class="card" id="projectIssuesCard" data-project-id="5a01e64ee1a8" data-snapshot-id="5e7df589eba9" data-project-updating="false">
+      <div class="card-head">
+        <div>
+          <h2 class="card-title">Issue Details</h2>
+          <p class="card-sub">Click a row for the full description. Issues load on demand from the latest snapshot.</p>
+        </div>
+        <div class="quick-filters">
+          <input class="search-field" id="searchBox" type="search" placeholder="Search file, bug, or description">
+          <select id="statusFilter"><option value="">All statuses</option></select>
+          <select id="toolFilter"><option value="">All tools</option></select>
+          <select id="severityFilter"><option value="">All severities</option></select>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <div class="issues-loading hidden" id="issuesLoading" aria-live="polite" aria-hidden="true">
+          <div class="issues-loading-inner">
+            <span class="issues-spinner" aria-hidden="true"></span>
+            <strong>Loading issues...</strong>
+            <small>Fetching the next page from the server.</small>
+          </div>
+        </div>
+        <table id="issuesTable">
+          <thead>
+            <tr>
+              <th>Status</th><th>Severity</th><th>Tool</th><th>File</th><th>Line</th><th>Bug</th><th>Description</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="card-sub" id="issuesLoadState">Open the Issues tab to load the latest snapshot.</p>
+      <div class="table-pager" id="issuesPager">
+        <div class="pager-meta">
+          <span id="issuesPagerSummary">Showing 0 of 0</span>
+        </div>
+        <div class="pager-controls">
+          <label class="pager-size">
+            <span>Rows</span>
+            <select id="pageSizeSelect">
+              <option value="25">25</option>
+              <option value="50" selected="">50</option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+            </select>
+          </label>
+          <button class="btn-ghost btn-sm" type="button" id="pagePrevBtn">Prev</button>
+          <span class="pager-page" id="issuesPagerPage">Page 1 / 1</span>
+          <button class="btn-ghost btn-sm" type="button" id="pageNextBtn">Next</button>
+        </div>
+      </div>
+    </section>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="tab-panel hidden" data-panel="proj-settings">
+
+  
+  <section class="card">
+    <div class="card-head">
+      <div>
+        <h2 class="card-title">Integrations</h2>
+        <p class="card-sub">Configure external issue sources. Secrets are encrypted and never shown again.</p>
+      </div>
+    </div>
+    
+      <details class="integration-details">
+      <summary>
+        <span class="integration-name">SonarQube</span>
+        <span class="count-badge ">Not set</span>
+        
+        
+      </summary>
+      <form class="integration-form" method="post" action="/projects/5a01e64ee1a8/integrations/sonarqube">
+        <div class="integration-fields">
+          
+            <div class="form-field">
+              <label>Server URL *
+                
+              </label>
+              <input name="sonarqube_url" type="text" value="" placeholder="e.g. https://sonar.example.com">
+            </div>
+          
+            <div class="form-field">
+              <label>User token *
+                
+              </label>
+              <input name="sonarqube_token" type="password" value="" placeholder="Sonar account / project analysis token" autocomplete="new-password">
+            </div>
+          
+            <div class="form-field">
+              <label>Project key *
+                
+              </label>
+              <input name="sonarqube_component_key" type="text" value="" placeholder="The Sonar project (component) key">
+            </div>
+          
+        </div>
+        
+          <div class="schedule-controls">
+            <label class="check-inline">
+              <input type="checkbox" name="sonarqube_enabled">
+              Auto-run weekly
+            </label>
+            <label>Day
+              <select name="sonarqube_day">
+                
+                  <option value="monday" selected="">Monday</option>
+                
+                  <option value="tuesday">Tuesday</option>
+                
+                  <option value="wednesday">Wednesday</option>
+                
+                  <option value="thursday">Thursday</option>
+                
+                  <option value="friday">Friday</option>
+                
+                  <option value="saturday">Saturday</option>
+                
+                  <option value="sunday">Sunday</option>
+                
+              </select>
+            </label>
+            <label>Time <input type="time" name="sonarqube_time" value="09:00"></label>
+            <input type="hidden" name="sonarqube_frequency" value="weekly">
+          </div>
+        
+        <div class="integration-actions">
+          <button class="btn-primary btn-sm" type="submit">Save SonarQube</button>
+          
+        </div>
+      </form>
+      </details>
+    
+      <details class="integration-details">
+      <summary>
+        <span class="integration-name">Jira</span>
+        <span class="count-badge ">Not set</span>
+        
+        
+      </summary>
+      <form class="integration-form" method="post" action="/projects/5a01e64ee1a8/integrations/jira">
+        <div class="integration-fields">
+          
+            <div class="form-field">
+              <label>Jira base URL *
+                
+              </label>
+              <input name="jira_base_url" type="text" value="" placeholder="e.g. https://your-org.atlassian.net">
+            </div>
+          
+            <div class="form-field">
+              <label>Account email *
+                
+              </label>
+              <input name="jira_email" type="text" value="" placeholder="Atlassian account email">
+            </div>
+          
+            <div class="form-field">
+              <label>API token *
+                
+              </label>
+              <input name="jira_token" type="password" value="" placeholder="Atlassian API token" autocomplete="new-password">
+            </div>
+          
+            <div class="form-field">
+              <label>JQL filter
+                
+              </label>
+              <input name="jira_jql" type="text" value="" placeholder="e.g. project = ABC AND statusCategory != Done">
+            </div>
+          
+        </div>
+        
+        <div class="integration-actions">
+          <button class="btn-primary btn-sm" type="submit">Save Jira</button>
+          
+        </div>
+      </form>
+      </details>
+    
+      <details class="integration-details">
+      <summary>
+        <span class="integration-name">AWS Cost &amp; Traffic</span>
+        <span class="count-badge ">Not set</span>
+        
+        
+      </summary>
+      <form class="integration-form" method="post" action="/projects/5a01e64ee1a8/integrations/aws">
+        <div class="integration-fields">
+          
+            <div class="form-field">
+              <label>Region *
+                
+              </label>
+              <input name="aws_region" type="text" value="" placeholder="e.g. eu-central-1">
+            </div>
+          
+            <div class="form-field">
+              <label>Access key ID *
+                
+              </label>
+              <input name="aws_access_key_id" type="text" value="" placeholder="">
+            </div>
+          
+            <div class="form-field">
+              <label>Secret access key *
+                
+              </label>
+              <input name="aws_secret_access_key" type="password" value="" placeholder="" autocomplete="new-password">
+            </div>
+          
+        </div>
+        
+          <div class="schedule-controls">
+            <label class="check-inline">
+              <input type="checkbox" name="aws_enabled">
+              Auto-run weekly
+            </label>
+            <label>Day
+              <select name="aws_day">
+                
+                  <option value="monday" selected="">Monday</option>
+                
+                  <option value="tuesday">Tuesday</option>
+                
+                  <option value="wednesday">Wednesday</option>
+                
+                  <option value="thursday">Thursday</option>
+                
+                  <option value="friday">Friday</option>
+                
+                  <option value="saturday">Saturday</option>
+                
+                  <option value="sunday">Sunday</option>
+                
+              </select>
+            </label>
+            <label>Time <input type="time" name="aws_time" value="09:00"></label>
+            <input type="hidden" name="aws_frequency" value="weekly">
+          </div>
+        
+        <div class="integration-actions">
+          <button class="btn-primary btn-sm" type="submit">Save AWS Cost &amp; Traffic</button>
+          
+        </div>
+      </form>
+      </details>
+    
+  </section>
+  
+
+  
+  <section class="card">
+    <div class="card-head">
+      <div>
+        <h2 class="card-title">Project Assignment</h2>
+        <p class="card-sub">
+          Assign managers (max 2) and employees to this project.
+          Check each user that should have access.
+        </p>
+      </div>
+    </div>
+    <form method="post" action="/admin/projects/5a01e64ee1a8/assign">
+      <div class="assignment-grid">
+        
+          <label class="assignee-card">
+            <input type="checkbox" name="assignees" value="bhavika">
+            <span class="person-avatar">B</span>
+            <div>
+              <strong>Bhavika R</strong>
+              <span class="role-pill role-manager">Manager</span>
+            </div>
+          </label>
+        
+          <label class="assignee-card">
+            <input type="checkbox" name="assignees" value="chirag">
+            <span class="person-avatar">C</span>
+            <div>
+              <strong>Chirag Magento Dev</strong>
+              <span class="role-pill role-employee">Employee</span>
+            </div>
+          </label>
+        
+          <label class="assignee-card">
+            <input type="checkbox" name="assignees" value="chittu14491">
+            <span class="person-avatar">C</span>
+            <div>
+              <strong>Chitrang</strong>
+              <span class="role-pill role-employee">Employee</span>
+            </div>
+          </label>
+        
+          <label class="assignee-card">
+            <input type="checkbox" name="assignees" value="dharmesh" checked="">
+            <span class="person-avatar">D</span>
+            <div>
+              <strong>Dharmesh</strong>
+              <span class="role-pill role-manager">Manager</span>
+            </div>
+          </label>
+        
+          <label class="assignee-card">
+            <input type="checkbox" name="assignees" value="jaimin-b-magnetoitsolutions-com">
+            <span class="person-avatar">J</span>
+            <div>
+              <strong>Jaimin B</strong>
+              <span class="role-pill role-employee">Employee</span>
+            </div>
+          </label>
+        
+          <label class="assignee-card">
+            <input type="checkbox" name="assignees" value="jainam-shah">
+            <span class="person-avatar">J</span>
+            <div>
+              <strong>jainam shah</strong>
+              <span class="role-pill role-employee">Employee</span>
+            </div>
+          </label>
+        
+          <label class="assignee-card">
+            <input type="checkbox" name="assignees" value="ravi-patel">
+            <span class="person-avatar">R</span>
+            <div>
+              <strong>Ravi Patel</strong>
+              <span class="role-pill role-employee">Employee</span>
+            </div>
+          </label>
+        
+          <label class="assignee-card">
+            <input type="checkbox" name="assignees" value="rutvi-jani-magnetoitsolutions-com" checked="">
+            <span class="person-avatar">R</span>
+            <div>
+              <strong>Rutvi Jani</strong>
+              <span class="role-pill role-employee">Employee</span>
+            </div>
+          </label>
+        
+      </div>
+      
+        <button class="btn-primary" type="submit" style="margin-top: 18px;">Save Assignment</button>
+      
+    </form>
+  </section>
+
+  <section class="card danger-zone">
+    <div class="card-head">
+      <div>
+        <h2 class="card-title">Delete Project</h2>
+        <p class="card-sub">Remove this project, its report history, uploaded XLSX files, and pending access requests.</p>
+      </div>
+    </div>
+    <form method="post" action="/admin/projects/5a01e64ee1a8/delete" onsubmit="return confirm('Delete dodlab and all report history? This cannot be undone.');">
+      <button class="btn-danger" type="submit">Delete Project</button>
+    </form>
+  </section>
+  
+</div>
+
+
+<script>
+  // Paginated, filterable issue tables for external sources (Sonar, Jira).
+  (function () {
+    function esc(v) { return (v === null || v === undefined) ? '' : String(v).replace(/[&<>]/g, function (m) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m]; }); }
+    function el(id) { return document.getElementById(id); }
+    function addOpts(sel, values) {
+      if (!sel || sel.dataset.filled === '1' || !values) return;
+      values.forEach(function (v) { var o = document.createElement('option'); o.value = v; o.textContent = v; sel.appendChild(o); });
+      sel.dataset.filled = '1';
+    }
+
+    // cfg: { prefix, source, colspan, row(i)->html }
+    function setupTab(cfg) {
+      var card = el(cfg.prefix + 'IssuesCard');
+      if (!card) return null;
+      var st = { page: 1, pageSize: 100, total: 0, totalPages: 1, filtersLoaded: false };
+      var stateEl = el(cfg.prefix + 'LoadState');
+
+      function load() {
+        var pid = card.dataset.projectId;
+        stateEl.textContent = 'Loading…';
+        var params = new URLSearchParams({ source: cfg.source, page: st.page, page_size: st.pageSize });
+        if (el(cfg.prefix + 'Search').value.trim()) params.set('search', el(cfg.prefix + 'Search').value.trim());
+        if (el(cfg.prefix + 'StatusFilter').value) params.set('status', el(cfg.prefix + 'StatusFilter').value);
+        if (el(cfg.prefix + 'SeverityFilter').value) params.set('severity', el(cfg.prefix + 'SeverityFilter').value);
+        if (el(cfg.prefix + 'RuleFilter').value) params.set('rule_prefix', el(cfg.prefix + 'RuleFilter').value);
+        fetch('/api/projects/' + encodeURIComponent(pid) + '/issues?' + params.toString(), { cache: 'no-store' })
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            if (!st.filtersLoaded && data.filters) {
+              addOpts(el(cfg.prefix + 'StatusFilter'), data.filters.statuses);
+              addOpts(el(cfg.prefix + 'SeverityFilter'), data.filters.severities);
+              addOpts(el(cfg.prefix + 'RuleFilter'), data.filters.rule_prefixes);
+              st.filtersLoaded = true;
+            }
+            var rows = (data.items || []).map(cfg.row).join('');
+            card.querySelector('tbody').innerHTML = rows || '<tr><td colspan="' + cfg.colspan + '">No issues match.</td></tr>';
+            st.total = data.total || 0; st.totalPages = data.total_pages || 1; st.page = data.page || 1;
+            var from = st.total ? (st.page - 1) * st.pageSize + 1 : 0;
+            var to = Math.min(st.page * st.pageSize, st.total);
+            el(cfg.prefix + 'PagerSummary').textContent = 'Showing ' + from + '–' + to + ' of ' + st.total;
+            el(cfg.prefix + 'PagerPage').textContent = 'Page ' + st.page + ' / ' + st.totalPages;
+            stateEl.textContent = st.total + ' issues (filtered).';
+            card.dataset.loaded = '1';
+          })
+          .catch(function () { stateEl.textContent = 'Could not load issues.'; });
+      }
+      function reload() { st.page = 1; load(); }
+      var deb;
+      el(cfg.prefix + 'Search').addEventListener('input', function () { clearTimeout(deb); deb = setTimeout(reload, 350); });
+      [cfg.prefix + 'StatusFilter', cfg.prefix + 'SeverityFilter', cfg.prefix + 'RuleFilter'].forEach(function (id) {
+        el(id) && el(id).addEventListener('change', reload);
+      });
+      el(cfg.prefix + 'PrevBtn').addEventListener('click', function () { if (st.page > 1) { st.page--; load(); } });
+      el(cfg.prefix + 'NextBtn').addEventListener('click', function () { if (st.page < st.totalPages) { st.page++; load(); } });
+      var panel = document.querySelector('[data-panel="proj-' + cfg.prefix + '"]');
+      if (panel && !panel.classList.contains('hidden')) load();
+      return function () { if (card.dataset.loaded !== '1') load(); };
+    }
+
+    window.loadSonarIssues = setupTab({
+      prefix: 'sonar', source: 'sonarqube', colspan: 6,
+      row: function (i) {
+        return '<tr><td>' + esc(i.Status) + '</td><td>' + esc(i.Severity) + '</td><td>' + esc(i.Bug) +
+          '</td><td>' + esc(i.File) + '</td><td>' + esc(i.Line) + '</td><td>' + esc(i.Description) + '</td></tr>';
+      },
+    });
+    window.loadJiraIssues = setupTab({
+      prefix: 'jira', source: 'jira', colspan: 5,
+      row: function (i) {
+        var key = i.File ? '<a href="' + esc(i.File) + '" target="_blank" rel="noopener">' + esc(i.ID) + '</a>' : esc(i.ID);
+        return '<tr><td>' + esc(i.Status) + '</td><td>' + esc(i.Severity) + '</td><td>' + esc(i.Bug) +
+          '</td><td>' + key + '</td><td>' + esc(i.Description) + '</td></tr>';
+      },
+    });
+
+    function bindRun(selector, suffix, label) {
+      document.querySelectorAll(selector).forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          btn.disabled = true;
+          var original = btn.textContent;
+          btn.textContent = label + '…';
+          fetch('/api/projects/' + encodeURIComponent(btn.dataset.projectId) + suffix, { method: 'POST' })
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+              if (data.ok) { window.location.reload(); }
+              else { alert(data.error || 'Failed'); btn.disabled = false; btn.textContent = original; }
+            })
+            .catch(function () { alert('Request failed'); btn.disabled = false; btn.textContent = original; });
+        });
+      });
+    }
+    bindRun('[data-sonar-run]', '/sonar-run', 'Running');
+    bindRun('[data-jira-import]', '/jira-import', 'Importing');
+    bindRun('[data-aws-run]', '/aws-run', 'Fetching');
+  })();
+</script>
+
+
+      </section>
+    </main>
+  </div>
+
+  <div class="page-update-overlay hidden" id="pageUpdateOverlay" aria-hidden="true">
+    <div class="page-update-card">
+      <span class="issues-spinner page-update-spinner" aria-hidden="true"></span>
+      <strong id="pageUpdateTitle">Data updating...</strong>
+      <p id="pageUpdateText">A new report upload was detected. Refreshing the latest dashboard data.</p>
+    </div>
+  </div>
+
+  
+  <div class="drawer-backdrop hidden" id="uploadBackdrop" aria-hidden="true">
+    <form class="drawer upload-drawer" id="manualUploadForm" method="post" action="/upload" enctype="multipart/form-data">
+      <div class="drawer-head">
+        <div>
+          <div class="drawer-title">Upload report</div>
+          <div class="drawer-sub">Push a tracker XLSX to an existing project or create a new one</div>
+        </div>
+        <button class="btn-ghost" type="button" data-close-upload="">Close</button>
+      </div>
+      <div class="drawer-body">
+        <div class="seg seg-lg upload-mode">
+          <button class="active" type="button" data-upload-mode="existing">Existing project</button>
+          <button type="button" data-upload-mode="new">New project</button>
+        </div>
+
+        <div class="form-field" id="existingProjectFields">
+          <label>Project</label>
+          <select name="existing_project_id" id="projectSelect" required="">
+            
+              <option value="5a01e64ee1a8">dodlab</option>
+            
+              <option value="c975b4c72e26">silhouette</option>
+            
+              <option value="346e9df75b68">ideaoman</option>
+            
+              <option value="beeaab29e335">petzone</option>
+            
+              <option value="03e050c5385d">mokab</option>
+            
+              <option value="a1a01c75899c">rakesha</option>
+            
+              <option value="9a6aaa0a1ff2">Catrion RSG-Cloud</option>
+            
+              <option value="c0c282cb43ff">dodtec</option>
+            
+              <option value="8226a27a152b">kwality</option>
+            
+          </select>
+        </div>
+
+        <div id="newProjectFields" class="hidden">
+          <div class="form-field">
+            <label>Project name</label>
+            <input name="project_name" id="projectName" placeholder="ideaoman" disabled="">
+          </div>
+          <div class="form-field">
+            <label>Project path</label>
+            <input name="project_path" placeholder="/var/www/html/ideaoman" disabled="">
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Branch</label>
+          <input name="branch" placeholder="main">
+        </div>
+
+        <label class="dropzone" id="uploadDropzone">
+          <input class="file-input sr-only" id="reportFile" type="file" name="file" accept=".xlsx" required="">
+          <span class="dz-empty" id="dropzoneEmpty">
+            <span class="dz-icon">↑</span>
+            <span>
+              <strong>Drop XLSX here or click to browse</strong>
+              <small>Use the generated grumphp_report.xlsx file.</small>
+            </span>
+          </span>
+          <span class="dz-file hidden" id="dropzoneFile">
+            <span class="dz-icon ok">✓</span>
+            <span>
+              <strong id="dropzoneFileName">Report selected</strong>
+              <small>Ready to upload.</small>
+            </span>
+          </span>
+        </label>
+
+        <div class="info-box">Manual uploads and tracker uploads use the same history store.</div>
+      </div>
+      <div class="drawer-foot">
+        <button class="btn-ghost" type="button" data-close-upload="">Cancel</button>
+        <button class="btn-primary" type="submit">Upload report</button>
+      </div>
+    </form>
+  </div>
+  
+
+  <aside class="drawer issue-drawer" id="drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <div>
+        <h2 id="drawerTitle">Issue</h2>
+        <p class="card-sub">Detailed report row</p>
+      </div>
+      <button class="btn-ghost" id="closeDrawer" type="button">Close</button>
+    </div>
+    <div class="drawer-body">
+      <div class="kv" id="drawerMeta"></div>
+      <div class="issue-desc" id="drawerDesc"></div>
+    </div>
+  </aside>
+
+  <script src="/static/dashboard.js?v=20260603-9"></script>
+
+</body></html>
